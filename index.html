@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form id="expense-form">
+      <input type="text" id="gasto" name="gasto" placeholder="Ingrese el gasto" />
+      <input type="number" id="monto" name="monto" placeholder="Ingrese el monto" />
+      <input type="text" id="categoria" name="categoria" placeholder="Ingrese la categoria" />
+      <input type="date" name="fecha" id="fecha" placeholder="Ingrese la fecha" />
+
+      <button type="submit">Enviar</button>
+    </form>
+    <section>
+      <h2 class="title">Gastos cargados:</h2>
+      <div id="expenses-list"></div>
+      <section>
+        <h2 class="title">Total gastado</h2>
+        <p id="total" class="price">$0</p>
+      </section>
+    </section>
+    <script src="main.js"></script>
+  </body>
+</html>
