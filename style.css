@@ -148,3 +148,17 @@ section {
     font-size: 30px;
   }
 }
+
+.clear-btn {
+  display: block;
+  margin: 0 auto;
+  background-color: #f87171;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 12px;
+}

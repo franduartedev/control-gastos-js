@@ -10,6 +10,8 @@ const totalElement = document.getElementById('total');
 
 const errorMessage = document.getElementById('error-message');
 
+const clearBtn = document.getElementById('clear-btn');
+
 let gastos = [];
 
 function calcularTotal() {
@@ -29,6 +31,14 @@ function formatearMoneda(valor) {
 }
 function eliminarGasto(id) {
   gastos = gastos.filter((gasto) => gasto.id !== id);
+
+  guardarGastos();
+  renderGastos();
+  calcularTotal();
+}
+
+function borrarTodosLosGastos() {
+  gastos = [];
 
   guardarGastos();
   renderGastos();
@@ -119,3 +129,5 @@ form.addEventListener('submit', (event) => {
 cargarGastos();
 renderGastos();
 calcularTotal();
+
+clearBtn.addEventListener('click', borrarTodosLosGastos);
