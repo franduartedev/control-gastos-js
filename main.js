@@ -19,7 +19,23 @@ function calcularTotal() {
 
   totalElement.textContent = `$${total}`;
 }
+function eliminarGasto(id) {
+  gastos = gastos.filter((gasto) => gasto.id !== id);
 
+  guardarGastos();
+  renderGastos();
+  calcularTotal();
+}
+function cargarGastos() {
+  const gastosGuardados = localStorage.getItem('gastos');
+
+  if (gastosGuardados !== null) {
+    gastos = JSON.parse(gastosGuardados);
+  }
+}
+function guardarGastos() {
+  localStorage.setItem('gastos', JSON.stringify(gastos));
+}
 function renderGastos() {
   expensesList.innerHTML = '';
 
@@ -30,12 +46,17 @@ function renderGastos() {
     card.classList.add('expense-card');
 
     card.innerHTML = `
-      <h3>${gastoActual.gasto}</h3>
-      <p>Monto: $${gastoActual.monto}</p>
-      <p>Categoria: ${gastoActual.categoria}</p>
-      <p>Fecha: ${gastoActual.fecha}</p>
-    `;
+  <h3>${gastoActual.gasto}</h3>
+  <p>Monto: $${gastoActual.monto}</p>
+  <p>Categoria: ${gastoActual.categoria}</p>
+  <p>Fecha: ${gastoActual.fecha}</p>
+  <button class="delete-btn">Eliminar</button>
+`;
+    const deleteBtn = card.querySelector('.delete-btn');
 
+    deleteBtn.addEventListener('click', () => {
+      eliminarGasto(gastoActual.id);
+    });
     expensesList.appendChild(card);
   }
 }
@@ -72,7 +93,11 @@ form.addEventListener('submit', (event) => {
     fecha,
   };
   gastos.push(nuevoGasto);
+  guardarGastos();
   renderGastos();
   calcularTotal();
   form.reset();
 });
+cargarGastos();
+renderGastos();
+calcularTotal();
