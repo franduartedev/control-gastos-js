@@ -18,8 +18,14 @@ function calcularTotal() {
   for (let i = 0; i < gastos.length; i++) {
     total = total + gastos[i].monto;
   }
-
-  totalElement.textContent = `$${total}`;
+  totalElement.textContent = formatearMoneda(total);
+}
+function formatearMoneda(valor) {
+  return new Intl.NumberFormat('es-AR', {
+    style: 'currency',
+    currency: 'ARS',
+    maximumFractionDigits: 0,
+  }).format(valor);
 }
 function eliminarGasto(id) {
   gastos = gastos.filter((gasto) => gasto.id !== id);
@@ -58,7 +64,7 @@ function renderGastos() {
 
     card.innerHTML = `
   <h3>${gastoActual.gasto}</h3>
-  <p>Monto: $${gastoActual.monto}</p>
+  <p>Monto: ${formatearMoneda(gastoActual.monto)}</p>
   <p>Categoria: ${gastoActual.categoria}</p>
   <p class="date">Fecha: ${gastoActual.fecha}</p>
   <button class="delete-btn">Eliminar</button>
