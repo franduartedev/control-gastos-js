@@ -8,6 +8,8 @@ const expensesList = document.getElementById('expenses-list');
 
 const totalElement = document.getElementById('total');
 
+const errorMessage = document.getElementById('error-message');
+
 let gastos = [];
 
 function calcularTotal() {
@@ -25,6 +27,15 @@ function eliminarGasto(id) {
   guardarGastos();
   renderGastos();
   calcularTotal();
+}
+function mostrarError(mensaje) {
+  errorMessage.textContent = mensaje;
+
+  if (mensaje === '') {
+    errorMessage.style.display = 'none';
+  } else {
+    errorMessage.style.display = 'block';
+  }
 }
 function cargarGastos() {
   const gastosGuardados = localStorage.getItem('gastos');
@@ -49,7 +60,7 @@ function renderGastos() {
   <h3>${gastoActual.gasto}</h3>
   <p>Monto: $${gastoActual.monto}</p>
   <p>Categoria: ${gastoActual.categoria}</p>
-  <p>Fecha: ${gastoActual.fecha}</p>
+  <p class="date">Fecha: ${gastoActual.fecha}</p>
   <button class="delete-btn">Eliminar</button>
 `;
     const deleteBtn = card.querySelector('.delete-btn');
@@ -70,21 +81,22 @@ form.addEventListener('submit', (event) => {
   const fecha = fechaInput.value;
 
   if (gasto === '') {
-    console.log('El gasto es obligatorio');
+    mostrarError('El gasto es obligatorio');
     return;
   }
   if (monto <= 0) {
-    console.log('El monto debe ser mayor a 0');
+    mostrarError('El monto debe ser mayor a 0');
     return;
   }
   if (categoria === '') {
-    console.log('La categoria del gasto es obligatoria');
+    mostrarError('La categoria del gasto es obligatoria');
     return;
   }
   if (fecha === '') {
-    console.log('La fecha es obligatoria');
+    mostrarError('La fecha es obligatoria');
     return;
   }
+  mostrarError('');
   const nuevoGasto = {
     id: Date.now(),
     gasto,
