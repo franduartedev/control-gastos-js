@@ -63,3 +63,7 @@ Próximas mejoras posibles:
 - Agregar filtros por categoría.
 - Agregar edición de gastos.
 - Mejorar el diseño responsive.
+
+## Demo
+
+[Ver proyecto online](https://franduartedev.github.io/control-gastos-js/)
