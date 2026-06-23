@@ -12,6 +12,8 @@ const errorMessage = document.getElementById('error-message');
 
 const clearBtn = document.getElementById('clear-btn');
 
+const emptyMessage = document.getElementById('empty-message');
+
 let gastos = [];
 
 function calcularTotal() {
@@ -37,6 +39,15 @@ function eliminarGasto(id) {
   calcularTotal();
 }
 
+function actualizarEstadoVacio() {
+  if (gastos.length === 0) {
+    emptyMessage.style.display = 'block';
+    clearBtn.style.display = 'none';
+  } else {
+    emptyMessage.style.display = 'none';
+    clearBtn.style.display = 'block';
+  }
+}
 function borrarTodosLosGastos() {
   gastos = [];
 
@@ -63,6 +74,7 @@ function cargarGastos() {
 function guardarGastos() {
   localStorage.setItem('gastos', JSON.stringify(gastos));
 }
+
 function renderGastos() {
   expensesList.innerHTML = '';
 
@@ -73,19 +85,23 @@ function renderGastos() {
     card.classList.add('expense-card');
 
     card.innerHTML = `
-  <h3>${gastoActual.gasto}</h3>
-  <p>Monto: ${formatearMoneda(gastoActual.monto)}</p>
-  <p>Categoria: ${gastoActual.categoria}</p>
-  <p class="date">Fecha: ${gastoActual.fecha}</p>
-  <button class="delete-btn">Eliminar</button>
-`;
+      <h3>${gastoActual.gasto}</h3>
+      <p>Monto: ${formatearMoneda(gastoActual.monto)}</p>
+      <p>Categoria: ${gastoActual.categoria}</p>
+      <p class="date">Fecha: ${gastoActual.fecha}</p>
+      <button class="delete-btn">Eliminar</button>
+    `;
+
     const deleteBtn = card.querySelector('.delete-btn');
 
     deleteBtn.addEventListener('click', () => {
       eliminarGasto(gastoActual.id);
     });
+
     expensesList.appendChild(card);
   }
+
+  actualizarEstadoVacio();
 }
 
 form.addEventListener('submit', (event) => {
